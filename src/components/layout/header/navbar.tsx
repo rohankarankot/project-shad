@@ -14,7 +14,6 @@ import { buttonVariants } from "~/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet"
 import headerData from "./header.data.json"
 import HeaderLink from "./headerLink.component"
-console.log("data: ", headerData?.data)
 
 export default function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -27,7 +26,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-primary-foreground p-6">
+    <nav className="bg-primary-foreground p-6 flex">
       <div className=" container flex  items-center justify-between">
         <Link href="/" className="flex items-center text-2xl font-bold">
           <Image
@@ -63,8 +62,15 @@ export default function Navbar() {
           </div>
           <ThemeToggle />
         </div>
+    
+      </div>
+      <div className="flex gap-3">
+     {  isLoggedIn && <MobileSidebarComponent />}
         <Sheet open={isModalOpen} onOpenChange={setIsModalOpen}>
-          <SheetTrigger className="md:hidden">{!!isLoggedIn ? <MobileSidebarComponent /> : <MenuIcon />}</SheetTrigger>
+          <SheetTrigger className="md:hidden">
+            
+            {  <MenuIcon />}
+            </SheetTrigger>
           <SheetContent side={"top"}>
             <div className="absolute right-3 float-end pt-10">
               <ThemeToggle />
@@ -102,7 +108,7 @@ export default function Navbar() {
             </div>
           </SheetContent>
         </Sheet>
-      </div>
+     </div>
 
       <LoginComponent />
     </nav>

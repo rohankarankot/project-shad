@@ -5,7 +5,7 @@ export interface LoginForm {
   password: string
 }
 
-export const loginFormSchema = {
+export const loginFormSchema:any = {
   email: {
     required: "Email is required",
     pattern: {

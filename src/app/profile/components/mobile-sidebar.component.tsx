@@ -1,4 +1,4 @@
-import { MenuIcon } from "lucide-react"
+import { User } from "lucide-react"
 import { useAppDispatch, useAppSelector } from "~/app/hooks"
 import { toggleOpenProfileModal } from "~/app/store/features/ui/all-dialog.slice"
 import { close } from "~/app/store/features/ui/login-dialog.slice"
@@ -9,14 +9,14 @@ const MobileSidebarComponent = () => {
   const dispatch = useAppDispatch()
 
   return (
-    <Sheet
+     <Sheet 
       open={isOpenSideBar}
       onOpenChange={() => {
         dispatch(close())
         dispatch(toggleOpenProfileModal())
       }}>
       <SheetTrigger className="md:hidden">
-        <MenuIcon />
+        <User />
       </SheetTrigger>
       <SheetContent side={"left"}>
         <div className="flex flex-col items-center space-y-10 py-10">
