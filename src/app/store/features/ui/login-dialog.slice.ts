@@ -27,7 +27,5 @@ export const loginDialog = createSlice({
 
 export const { open, close } = loginDialog.actions
 
-// Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.loginDialog.value
 
 export default loginDialog.reducer

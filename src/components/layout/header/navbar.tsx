@@ -3,7 +3,7 @@
 import { MenuIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "~/app/hooks"
 import MobileSidebarComponent from "~/app/profile/components/mobile-sidebar.component"
 import { open } from "~/app/store/features/ui/login-dialog.slice"
@@ -14,19 +14,25 @@ import { buttonVariants } from "~/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet"
 import headerData from "./header.data.json"
 import HeaderLink from "./headerLink.component"
+import useGeolocation from "~/hooks/use-geolocation"
+import GetLocationPinCode from "~/components/get-pincode/get-pincode.dialog"
+import { toggleOpenPinCodeModal } from "~/app/store/features/ui/all-dialog.slice"
 
 export default function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const dispatch = useAppDispatch()
-
+  const { askForLocationPermission } = useGeolocation()
   const isLoggedIn = useAppSelector((state) => state?.authentication?.token)
 
   const openLoginModal = () => {
     dispatch(open())
   }
+  useEffect(() => {
+    askForLocationPermission()
+  }, [])
 
   return (
-    <nav className="bg-primary-foreground p-6 flex">
+    <nav className="flex bg-primary-foreground p-6">
       <div className=" container flex  items-center justify-between">
         <Link href="/" className="flex items-center text-2xl font-bold">
           <Image
@@ -62,15 +68,11 @@ export default function Navbar() {
           </div>
           <ThemeToggle />
         </div>
-    
       </div>
       <div className="flex gap-3">
-     {  isLoggedIn && <MobileSidebarComponent />}
+        {isLoggedIn && <MobileSidebarComponent />}
         <Sheet open={isModalOpen} onOpenChange={setIsModalOpen}>
-          <SheetTrigger className="md:hidden">
-            
-            {  <MenuIcon />}
-            </SheetTrigger>
+          <SheetTrigger className="md:hidden">{<MenuIcon />}</SheetTrigger>
           <SheetContent side={"top"}>
             <div className="absolute right-3 float-end pt-10">
               <ThemeToggle />
@@ -108,9 +110,7 @@ export default function Navbar() {
             </div>
           </SheetContent>
         </Sheet>
-     </div>
-
-      <LoginComponent />
+      </div>
     </nav>
   )
 }

@@ -1,4 +1,5 @@
 "use client"
+import React from "react"
 import { useAppDispatch, useAppSelector } from "~/app/hooks"
 import { open } from "~/app/store/features/ui/login-dialog.slice"
 import { Button, buttonVariants } from "~/components/ui/button"
@@ -6,6 +7,7 @@ import { Button, buttonVariants } from "~/components/ui/button"
 export default function Hero() {
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector((state) => state?.authentication?.token)
+
 
   return (
     <section>

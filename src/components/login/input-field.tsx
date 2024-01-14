@@ -4,16 +4,17 @@ import { Input } from "../ui/input"
 import { loginFormSchema } from "./schema/login.schema"
 
 type InputFieldProps = {
-  label: string;
-  id: string;
-  type: string;
-  field: string 
+  label: string
+  id: string
+  type: string
+  field: string
   errors: any
-  control: any;
-};
+  control: any
+}
 
-const InputField = ({ label, id, type, field, errors, control }:InputFieldProps) => {
-  let error= errors?.[field]?.message
+const InputField = ({ label, id, type, field, errors, control }: InputFieldProps) => {
+  let error = errors?.[field]?.message
+  console.log("error: ", error)
   return (
     <div>
       <Label className="sr-only" htmlFor={id}>
