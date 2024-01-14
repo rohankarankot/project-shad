@@ -18,14 +18,12 @@ import { storeLocation } from "~/app/store/features/geo-location/location.slice"
 const GetLocationPinCode: React.FC = () => {
   const isModalOpen = useAppSelector((state) => state.allDialog.openPinCodeModal)
   const locationDetails = useAppSelector((state) => state.geoLocation)
-  console.log("locationDetails: ", locationDetails)
   const dispatch = useAppDispatch()
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<PinCodeForm>()
-  console.log("errors: ", errors)
 
   const onSubmit: PinCodeSubmitHandler = (data) => {
     // Perform actions with the form data, for example, make an API request

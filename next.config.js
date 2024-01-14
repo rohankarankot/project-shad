@@ -7,7 +7,7 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["dummyimage.com"],
+    domains: ["dummyimage.com","ik.imagekit.io"],
   },
   redirects: async () => {
     return [

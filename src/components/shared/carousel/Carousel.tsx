@@ -9,6 +9,7 @@ export function CarouselComponent() {
       className="relative w-full max-w-lg"
       opts={{
         loop: true,
+        duration:10
       }}>
       <CarouselContent>
         {Array.from({ length: 5 }).map((_, index) => (
@@ -25,7 +26,7 @@ export function CarouselComponent() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="bottom-" />
+      <CarouselPrevious />
       <CarouselNext />
     </Carousel>
   )

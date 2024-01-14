@@ -14,6 +14,7 @@ import { store } from "./store/store"
 import Header from "~/components/layout/header"
 import GetLocationPinCode from "~/components/get-pincode/get-pincode.dialog"
 import LoginComponent from "~/components/login/login.component"
+import { PageTransitionLoader } from "./utils/PageTransitionLoader"
 
 const fontSans = Inter({
   subsets: ["latin"],
@@ -42,9 +43,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body className={cn("font-sans antialiased", fontSans.variable, fontHeading.variable)}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <AlertDialog>
-              <GetLocationPinCode />
+              {/* <GetLocationPinCode /> */}
               <LoginComponent />
               <Header />
+              <PageTransitionLoader/>
               <main>{children}</main>
               <Footer />
               <Toaster />
