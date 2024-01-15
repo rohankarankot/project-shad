@@ -1,32 +1,73 @@
 "use client"
 
-import { CarouselComponent } from "~/components/shared/carousel/Carousel"
-import { Button, buttonVariants } from "~/components/ui/button"
+import { Phone } from "lucide-react"
+import Image from "next/image"
+import { useEffect } from "react"
+import { useLazyGetProductDetailsQuery } from "~/app/store/features/products/api"
+import { buttonVariants } from "~/components/ui/button"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "~/components/ui/carousel"
+import PdpCardSkeleton from "../skeleton/pdp.card.skeleton"
 
-export default function product() {
+const Product = ({ params }: { params: { productId: string } }) => {
+  const [getProductDetails, results] = useLazyGetProductDetailsQuery()
+  console.log("results: ", results)
+
+  useEffect(() => {
+    getProductDetails(params.productId)
+  }, [params.productId])
+
+  if (!results?.isSuccess) {
+    return <PdpCardSkeleton />
+  }
   return (
-    <section className="body-font overflow-hidden bg-gray-900 text-gray-400">
+    <section className="body-font overflow-hidden  ">
       <div className="container mx-auto px-5 py-24">
         <div className="mx-auto flex flex-wrap gap-8 ">
-          <div className="mx-auto sm:w-4/5 lg:w-[40%]">
-            <CarouselComponent />
+          <div className="mx-auto sm:w-4/5 md:w-[45%]">
+            <Carousel
+              className="relative w-full max-w-lg"
+              opts={{
+                loop: true,
+                duration: 20,
+              }}>
+              <CarouselContent>
+                {results?.data?.image?.map((singleImage: any, index: number) => (
+                  <CarouselItem key={index}>
+                    <div className="p-1">
+                      <Image
+                        alt={singleImage?.name}
+                        className=" h-[500px] rounded-t-xl object-contain"
+                        width={500}
+                        height={600}
+                        objectFit="cover"
+                        src={singleImage?.url}
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
           </div>
-          <div className="mt-6 w-full lg:mt-0 lg:w-1/2 lg:py-6 lg:pl-10">
-            <h2 className="title-font text-sm tracking-widest text-gray-500">BRAND NAME</h2>
-            <h1 className="title-font mb-1 text-3xl font-medium text-white">The Catcher in the Rye</h1>
-
-            <p className="leading-relaxed">
-              Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY.
-              XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric.
-              Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.
-            </p>
-            <div className="mb-5 mt-6 flex items-center border-b-2 border-gray-800 pb-5">
+          <div className="mt-6 w-full md:w-[45%] lg:mt-0 lg:py-6 lg:pl-10">
+            <h2 className="title-font text-sm tracking-widest ">{results?.data?.category}</h2>
+            <h1 className="title-font mb-1 text-3xl font-medium ">{results?.data?.caption}</h1>
+            <p className="leading-relaxed">{results?.data?.description}</p>
+            <hr />
+            Address: <b>{`${results?.data?.address}, ${results?.data?.city}, ${results?.data?.state}`}</b>
+            <div className="mb-5 mt-2 flex items-center border-b-2 border-gray-800 pb-5">
               <hr />
             </div>
-            <div className="flex justify-between">
-              <span className="title-font text-2xl font-medium text-white">$58.00</span>
+            <div className="flex items-center justify-evenly ">
+              <p className="font-semibold">
+                Posted by: <b>{results?.data?.userName}</b>
+              </p>
 
-              <Button className={buttonVariants({ size: "lg" })}>Dive In Now</Button>
+              <div className={buttonVariants({ variant: "secondary", className: "cursor-pointer" })}>
+                <Phone size={20} className="mr-2" />
+                call now
+              </div>
             </div>
           </div>
         </div>
@@ -34,3 +75,5 @@ export default function product() {
     </section>
   )
 }
+
+export default Product

@@ -3,7 +3,7 @@
 import Hero from "~/components/sections/hero"
 import OpenSource from "~/components/sections/open-source"
 import { useAppDispatch } from "./hooks"
-import {  useEffect } from "react"
+import { useEffect } from "react"
 import { toggleOpenPinCodeModal } from "./store/features/ui/all-dialog.slice"
 import FeaturesPosts from "~/components/sections/components/featured-city-section/features"
 
@@ -18,7 +18,7 @@ export default async function Home() {
     return () => {
       clearTimeout(timeoutId)
     }
-}, [dispatch])
+  }, [dispatch])
   return (
     <>
       <Hero />

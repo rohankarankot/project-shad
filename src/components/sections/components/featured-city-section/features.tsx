@@ -20,7 +20,7 @@ export default function FeaturesPosts() {
     const data: payloadType = {
       city: location.address.state_district.toLowerCase(),
       page: 1,
-      limit: 4,
+      limit: 10,
     }
     const getFeaturedPosts = async (data: payloadType) => {
       try {
@@ -38,7 +38,7 @@ export default function FeaturesPosts() {
 
   return (
     <>
-      <section className="body-font bg-gray-900 py-4 pb-10 text-gray-400">
+      <section className="body-font py-4 pb-10 text-gray-400">
         <div className="container mx-auto">
           <div className="mx-auto flex flex-col items-center justify-center gap-4 py-10 text-center">
             <span className="flex items-center gap-3 border-b-2">
@@ -48,10 +48,10 @@ export default function FeaturesPosts() {
             </span>
           </div>
           <div className="flex">
-            <div className="grid grid-cols-2 sm:grid-cols-2 sm:gap-2 md:grid-cols-2 md:gap-10 lg:grid-cols-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-10 lg:grid-cols-4">
               {!results?.isSuccess && (
                 <>
-                  {Array.from({ length: 8 }).map((_, index) => (
+                  {Array.from({ length: 4 }).map((_, index) => (
                     <CardSkeleton />
                   ))}
                 </>
@@ -61,7 +61,9 @@ export default function FeaturesPosts() {
               ))}
             </div>
           </div>
-          <Button className="flex m-auto mt-4 text-xl" variant={"link"}>View All</Button>
+          <Button className="m-auto mt-4 flex text-xl" variant={"link"}>
+            View All
+          </Button>
         </div>
       </section>
     </>
