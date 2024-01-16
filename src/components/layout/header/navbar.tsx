@@ -7,7 +7,6 @@ import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "~/app/hooks"
 import MobileSidebarComponent from "~/app/profile/components/mobile-sidebar.component"
 import { open } from "~/app/store/features/ui/login-dialog.slice"
-import LoginComponent from "~/components/login/login.component"
 import ThemeToggle from "~/components/shared/theme-toggle"
 import { AlertDialogTrigger } from "~/components/ui/alert-dialog"
 import { buttonVariants } from "~/components/ui/button"
@@ -15,11 +14,10 @@ import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet"
 import headerData from "./header.data.json"
 import HeaderLink from "./headerLink.component"
 import useGeolocation from "~/hooks/use-geolocation"
-import GetLocationPinCode from "~/components/get-pincode/get-pincode.dialog"
-import { toggleOpenPinCodeModal } from "~/app/store/features/ui/all-dialog.slice"
 
 export default function Navbar() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [istokenAvailable, setIstokenAvailable] = useState<boolean>(false)
   const dispatch = useAppDispatch()
   const { askForLocationPermission } = useGeolocation()
   const isLoggedIn = useAppSelector((state) => state?.authentication?.token)
@@ -29,6 +27,7 @@ export default function Navbar() {
   }
   useEffect(() => {
     askForLocationPermission()
+    setIstokenAvailable(!!global?.window?.sessionStorage.getItem("token"))
   }, [])
 
   return (
@@ -51,7 +50,7 @@ export default function Navbar() {
             ))}
           </div>
           <div className="flex items-center gap-x-2">
-            {!!isLoggedIn ? (
+            {!!isLoggedIn || istokenAvailable ? (
               <Link href="/profile" className="font-semibold hover:underline hover:underline-offset-4">
                 Profile
               </Link>
@@ -70,7 +69,7 @@ export default function Navbar() {
         </div>
       </div>
       <div className="flex gap-3">
-        {isLoggedIn && <MobileSidebarComponent />}
+        {(!!isLoggedIn || istokenAvailable) && <MobileSidebarComponent />}
         <Sheet open={isModalOpen} onOpenChange={setIsModalOpen}>
           <SheetTrigger className="md:hidden">{<MenuIcon />}</SheetTrigger>
           <SheetContent side={"top"}>
@@ -89,7 +88,7 @@ export default function Navbar() {
                 ))}
               </div>
               <div className=" gap-x-2">
-                {!!isLoggedIn ? (
+                {!!isLoggedIn || global?.window?.sessionStorage.getItem("token") !== null ? (
                   <Link
                     href="/profile"
                     onClick={() => setIsModalOpen(false)}

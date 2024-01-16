@@ -40,6 +40,7 @@ const LoginComponent: React.FC = () => {
       setLoginRes(res)
       if (res?.data?.token) {
         dispatch(storeToken(res?.data?.token))
+        global?.window?.sessionStorage.setItem("token", res?.data?.token)
         closeLoginModal()
       }
     } catch (error) {

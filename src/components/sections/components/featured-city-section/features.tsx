@@ -1,5 +1,4 @@
 "use client"
-/* eslint-disable @next/next/no-img-element */
 
 import { Flame } from "lucide-react"
 import { useAppSelector } from "~/app/hooks"
@@ -20,7 +19,7 @@ export default function FeaturesPosts() {
     const data: payloadType = {
       city: location.address.state_district.toLowerCase(),
       page: 1,
-      limit: 10,
+      limit: 4,
     }
     const getFeaturedPosts = async (data: payloadType) => {
       try {

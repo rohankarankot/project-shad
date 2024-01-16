@@ -15,6 +15,7 @@ import Header from "~/components/layout/header"
 import GetLocationPinCode from "~/components/get-pincode/get-pincode.dialog"
 import LoginComponent from "~/components/login/login.component"
 import { PageTransitionLoader } from "../utils/PageTransitionLoader"
+import RouteGuard from "~/utils/routeGuard"
 
 const fontSans = Inter({
   subsets: ["latin"],
@@ -44,9 +45,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* <GetLocationPinCode /> */}
               <LoginComponent />
               <PageTransitionLoader />
-              <Header />
-              <main>{children}</main>
-              <Footer />
+              <RouteGuard>
+                <Header />
+                <main>{children}</main>
+                <Footer />
+              </RouteGuard>
               <Toaster />
             </AlertDialog>
           </ThemeProvider>

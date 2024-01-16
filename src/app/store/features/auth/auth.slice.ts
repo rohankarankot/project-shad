@@ -16,7 +16,7 @@ export const authentication = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    storeToken: (state, action: PayloadAction<string>) => {
+    storeToken: (state, action: PayloadAction<string | null>) => {
       state.token = action.payload
     },
   },

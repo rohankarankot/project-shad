@@ -4,10 +4,21 @@ import { MenuIcon } from "lucide-react"
 import { useState } from "react"
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
+import { useAppDispatch } from "../hooks"
+import { storeToken } from "../store/features/auth/auth.slice"
+import { useRouter } from "next/navigation"
 
 export default function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const dispatch = useAppDispatch()
+  const router = useRouter()
 
+  const handleLogOut = () => {
+    dispatch(storeToken(null))
+    global?.window?.sessionStorage.removeItem("token")
+    router.replace("/")
+    router.refresh()
+  }
   return (
     <>
       <Sheet open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -24,12 +35,16 @@ export default function Profile() {
             <TabsTrigger value="1">Account</TabsTrigger>
             <TabsTrigger value="2">My Posts</TabsTrigger>
             <TabsTrigger value="3">settings</TabsTrigger>
-            <TabsTrigger value="4">Logout</TabsTrigger>
+            <TabsTrigger value="4" onClick={() => router.push("/")}>
+              back to Home
+            </TabsTrigger>
+            <TabsTrigger value="4" onClick={handleLogOut}>
+              Logout
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="1">Account</TabsContent>
           <TabsContent value="2">My Posts</TabsContent>
           <TabsContent value="3">settings</TabsContent>
-          <TabsContent value="4">Logout</TabsContent>
         </Tabs>
       </div>
     </>
