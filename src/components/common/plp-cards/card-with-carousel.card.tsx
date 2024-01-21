@@ -1,14 +1,13 @@
-import {  Phone, MessageCircle } from "lucide-react"
+import { Phone, MessageCircle } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "~/components/ui/card"
-import { Carousel, CarouselContent, CarouselItem } from "~/components/ui/carousel"
 
 const CardWithCarouselCard = ({ data }: any) => {
   return (
     <div>
       <Card className="mb-2 rounded-xl">
-        <Carousel
+        {/* <Carousel
           className="relative w-full max-w-lg"
           opts={{
             loop: true,
@@ -32,7 +31,7 @@ const CardWithCarouselCard = ({ data }: any) => {
               ))}
             </CarouselContent>
           </Link>
-        </Carousel>
+        </Carousel> */}
         <div className="flex justify-between px-4 sm:flex-col lg:flex-row">
           <div>
             <CardHeader>
