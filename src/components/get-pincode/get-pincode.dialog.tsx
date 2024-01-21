@@ -34,7 +34,7 @@ const GetLocationPinCode: React.FC = () => {
         coords: locationDetails.coords,
         address: {
           ...locationDetails.address,
-          postcode: data.pincode,
+          postcode: Number(data.pincode),
         },
       }),
     )

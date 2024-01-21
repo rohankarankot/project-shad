@@ -10,7 +10,7 @@ export interface LocationDetails {
     country: string
     country_code: string
     city: string
-    postcode: string
+    postcode: string | number
     state: string
     state_district: string
     village: string
