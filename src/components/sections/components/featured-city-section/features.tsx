@@ -8,18 +8,22 @@ import { LocationDetails } from "~/types/common.types"
 import CardSkeleton from "../../../common/skeletons/card.skeleton"
 import CardWithCarouselCard from "~/components/common/plp-cards/card-with-carousel.card"
 import { Button } from "~/components/ui/button"
+import NotFoundComponent from "./not-found-component"
+import useGeolocation from "~/hooks/use-geolocation"
 
 export default function FeaturesPosts() {
   const [getAllPostFromCity, results] = useLazyGetAllPostFromCityQuery()
+  const { askForLocationPermission } = useGeolocation()
+  console.log("results: ~~~", results)
 
   const location: LocationDetails = useAppSelector((state) => state.geoLocation)
 
   type payloadType = { city: string; page: number; limit: number }
   useEffect(() => {
     const data: payloadType = {
-      city: location.address.state_district.toLowerCase(),
+      city: location?.address?.city?.toLowerCase(),
       page: 1,
-      limit: 4,
+      limit: 10,
     }
     const getFeaturedPosts = async (data: payloadType) => {
       try {
@@ -30,9 +34,8 @@ export default function FeaturesPosts() {
         console.error(" failed:", error)
       }
     }
-    if (location.address.state_district) {
-      getFeaturedPosts(data)
-    }
+
+    getFeaturedPosts(data)
   }, [location.address.state_district])
 
   return (
@@ -46,23 +49,43 @@ export default function FeaturesPosts() {
               <Flame size={40} />
             </span>
           </div>
-          <div className="flex">
-            <div className="grid grid-cols-2 sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-10 lg:grid-cols-4">
-              {!results?.isSuccess && (
-                <>
-                  {Array.from({ length: 4 }).map((_, index) => (
-                    <CardSkeleton />
-                  ))}
-                </>
-              )}
-              {results?.data?.data?.map((data: any, index: number) => (
-                <CardWithCarouselCard key={data?._id} data={data} />
-              ))}
-            </div>
-          </div>
-          <Button className="m-auto mt-4 flex text-xl" variant={"link"}>
-            View All
-          </Button>
+          {
+            // @ts-ignore
+            results?.error?.status === 400 ? (
+              <NotFoundComponent
+                data={{
+                  title: "It seems that you have not Given Location Permission",
+                  subtitle: "Please turn on the location and try again",
+                  primaryAction: {
+                    title: "Allow Location",
+                    cB: askForLocationPermission,
+                  },
+                }}
+              />
+            ) : (
+              <>
+                <div className="flex">
+                  <div className="grid grid-cols-2 sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-10 lg:grid-cols-4">
+                    {!results?.isSuccess && (
+                      <>
+                        {Array.from({ length: 4 }).map((_, index) => (
+                          <CardSkeleton />
+                        ))}
+                      </>
+                    )}
+                    {results?.data?.data?.map((data: any, index: number) => (
+                      <CardWithCarouselCard key={data?._id} data={data} />
+                    ))}
+                  </div>
+                </div>
+                {results?.data?.data && (
+                  <Button className="m-auto mt-4 flex text-xl" variant={"link"}>
+                    View All
+                  </Button>
+                )}
+              </>
+            )
+          }
         </div>
       </section>
     </>

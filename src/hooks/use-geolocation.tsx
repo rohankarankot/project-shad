@@ -37,15 +37,15 @@ const useGeolocation = (): GeolocationHook => {
   }, [])
   useEffect(() => {
     if (results?.data) {
-      const { country, country_code, county, postcode, state, state_district, village } = results?.data?.address || {}
+      const { country, country_code, city, postcode, state, state_district, village } = results?.data?.address || {}
       dispatch(
         storeLocation({
           coords: location,
           address: {
-            addressLine:"",
+            addressLine: "",
             country,
             country_code,
-            county,
+            city,
             postcode,
             state,
             state_district,

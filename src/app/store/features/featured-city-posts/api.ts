@@ -9,8 +9,8 @@ export const GetPostsFromCity = createApi({
         url: `/post/city/all`,
         params: {
           city: data.city,
-          page:data.page,
-          limit:data.limit,
+          page: data.page,
+          limit: data.limit,
         },
       }),
     }),

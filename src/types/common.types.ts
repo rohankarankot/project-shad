@@ -6,10 +6,10 @@ export interface LocationCoords {
 export interface LocationDetails {
   coords: { latitude: number | null; longitude: number | null }
   address: {
-    addressLine:string
+    addressLine: string
     country: string
     country_code: string
-    county: string
+    city: string
     postcode: string
     state: string
     state_district: string

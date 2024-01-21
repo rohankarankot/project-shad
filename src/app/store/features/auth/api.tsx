@@ -11,7 +11,15 @@ export const loginRegisterAPI = createApi({
         body: data,
       }),
     }),
+    getProfileDetails: builder.query({
+      query: () => ({
+        url: `/users/profile`,
+        headers: {
+          Authorization: `Bearer ${global?.window?.sessionStorage.getItem("token")}`,
+        },
+      }),
+    }),
   }),
 })
 
-export const { useAuthAPIMutation } = loginRegisterAPI
+export const { useAuthAPIMutation, useGetProfileDetailsQuery } = loginRegisterAPI

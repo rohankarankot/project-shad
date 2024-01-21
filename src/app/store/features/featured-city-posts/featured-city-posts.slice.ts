@@ -5,10 +5,10 @@ import {  LocationDetails } from "~/types/common.types"
 const initialState: LocationDetails = {
   coords: { latitude: null, longitude: null },
   address: {
-    addressLine:"",
+    addressLine: "",
     country: "",
     country_code: "",
-    county: "",
+    city: "",
     postcode: "",
     state: "",
     state_district: "",

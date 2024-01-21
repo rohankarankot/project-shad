@@ -12,7 +12,6 @@ function RouteGuard({ children }: any) {
 
   useEffect(() => {
     const url = pathname + searchParams.toString()
-    console.log("url: ", url)
     authCheck(url)
   }, [pathname, searchParams])
 
@@ -26,7 +25,6 @@ function RouteGuard({ children }: any) {
     // redirect to Homepage page if accessing a protected page and not logged in
     const protectedPaths = [ROUTES.MY_ACCOUNT]
     const path = url.split("?")[0]
-    console.log("protectedPaths: ", protectedPaths.includes(path))
     if (!protectedPaths.includes(path)) {
       setAuthorized(false)
     } else {
