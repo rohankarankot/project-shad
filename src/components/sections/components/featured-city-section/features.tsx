@@ -14,7 +14,6 @@ import useGeolocation from "~/hooks/use-geolocation"
 export default function FeaturesPosts() {
   const [getAllPostFromCity, results] = useLazyGetAllPostFromCityQuery()
   const { askForLocationPermission } = useGeolocation()
-  console.log("results: ~~~", results)
 
   const location: LocationDetails = useAppSelector((state) => state.geoLocation)
 
@@ -69,7 +68,7 @@ export default function FeaturesPosts() {
                     {!results?.isSuccess && (
                       <>
                         {Array.from({ length: 4 }).map((_, index) => (
-                          <CardSkeleton />
+                          <CardSkeleton key={index} />
                         ))}
                       </>
                     )}
