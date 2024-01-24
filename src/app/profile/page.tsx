@@ -1,18 +1,18 @@
 "use client"
 
 import { Tabs, TabsContent } from "~/components/ui/tabs"
-import { useAppSelector } from "../hooks"
+// import { useAppSelector } from "../hooks"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useGetProfileDetailsQuery } from "../store/features/auth/api"
+// import { useGetProfileDetailsQuery } from "../store/features/auth/api"
 import UseProfileTab from "./components/use-profile.tab"
 import { SideTabs } from "./components/side-tabs.component"
 
 export default function Profile() {
   const searchParams = useSearchParams()
   const activeTab = searchParams.get("tab")
-  const isOpenSideBar = useAppSelector((state) => state?.allDialog?.openProfileModal)
+  // const isOpenSideBar = useAppSelector((state) => state?.allDialog?.openProfileModal)
 
-  const { data: profileData, error: profileError, isFetching } = useGetProfileDetailsQuery({})
+  // const { data: profileData, error: profileError, isFetching } = useGetProfileDetailsQuery({})
 
   return (
     <Tabs defaultValue={activeTab || "account"}>

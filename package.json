@@ -1,5 +1,5 @@
 {
-  "name": "chadnext",
+  "name": "projectnext",
   "version": "1.5.0",
   "private": true,
   "scripts": {
@@ -32,7 +32,8 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.49.2",
     "react-redux": "^9.0.4",
-    "shadcn-ui": "^0.6.0"
+    "shadcn-ui": "^0.6.0",
+    "swiper": "^11.0.5"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.4",

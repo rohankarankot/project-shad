@@ -1,35 +1,36 @@
 "use client"
 
 import Image from "next/image"
-import * as React from "react"
 
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "~/components/ui/carousel"
+import { Swiper, SwiperSlide } from "swiper/react"
 
-export function CarouselComponent() {
+import "swiper/css"
+import "swiper/css/pagination"
+
+import { Pagination } from "swiper/modules"
+export function CarouselComponent({ images }: any) {
   return (
-    <Carousel
-      className="relative w-full max-w-lg"
-      opts={{
-        loop: true,
-        duration:10
-      }}>
-      <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <CarouselItem key={index}>
-            <div className="p-1">
-              <Image
-                alt="ecommerce"
-                className="block overflow-hidden rounded-xl object-cover"
-                width={520}
-                height={320}
-                src="https://dummyimage.com/500x500"
-              />
-            </div>
-          </CarouselItem>
+    <>
+      <Swiper
+        navigation
+        pagination={{ clickable: true }}
+        scrollbar={{ draggable: true }}
+        modules={[Pagination]}
+        className="mySwiper"
+      >
+        {images?.map((singleImage: any, index: number) => (
+          <SwiperSlide key={index}>
+            <Image
+              alt="ecommerce"
+              className=" h-[150px] rounded-t-xl object-cover  lg:h-[250px]"
+              width={300}
+              height={300}
+              objectFit="cover"
+              src={singleImage?.thumbnailUrl}
+            />
+          </SwiperSlide>
         ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+      </Swiper>
+    </>
   )
 }

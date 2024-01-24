@@ -12,7 +12,7 @@ import { cn } from "~/lib/utils"
 import { toggleOpenPinCodeModal } from "~/app/store/features/ui/all-dialog.slice"
 import InputField from "../login/input-field"
 import { useForm } from "react-hook-form"
-import { PinCodeForm, PinCodeSubmitHandler } from "./schema"
+import type { PinCodeForm, PinCodeSubmitHandler } from "./schema"
 import { storeLocation } from "~/app/store/features/geo-location/location.slice"
 
 const GetLocationPinCode: React.FC = () => {
@@ -47,7 +47,8 @@ const GetLocationPinCode: React.FC = () => {
         <div className="absolute right-2 top-2">
           <AlertDialogCancel
             onClick={() => dispatch(toggleOpenPinCodeModal())}
-            className={buttonVariants({ variant: "link", size: "icon" }) + "absolute right-0"}>
+            className={buttonVariants({ variant: "link", size: "icon" }) + "absolute right-0"}
+          >
             x
           </AlertDialogCancel>
         </div>

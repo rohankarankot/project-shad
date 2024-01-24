@@ -4,7 +4,7 @@ import { Flame } from "lucide-react"
 import { useAppSelector } from "~/app/hooks"
 import { useLazyGetAllPostFromCityQuery } from "~/app/store/features/featured-city-posts/api"
 import { useEffect } from "react"
-import { LocationDetails } from "~/types/common.types"
+import type { LocationDetails } from "~/types/common.types"
 import CardSkeleton from "../../../common/skeletons/card.skeleton"
 import CardWithCarouselCard from "~/components/common/plp-cards/card-with-carousel.card"
 import { Button } from "~/components/ui/button"
@@ -48,43 +48,41 @@ export default function FeaturesPosts() {
               <Flame size={40} />
             </span>
           </div>
-          {
-            // @ts-ignore
-            results?.error?.status === 400 ? (
-              <NotFoundComponent
-                data={{
-                  title: "It seems that you have not Given Location Permission",
-                  subtitle: "Please turn on the location and try again",
-                  primaryAction: {
-                    title: "Allow Location",
-                    cB: askForLocationPermission,
-                  },
-                }}
-              />
-            ) : (
-              <>
-                <div className="flex">
-                  <div className="grid grid-cols-2 sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-10 lg:grid-cols-4">
-                    {!results?.isSuccess && (
-                      <>
-                        {Array.from({ length: 4 }).map((_, index) => (
-                          <CardSkeleton key={index} />
-                        ))}
-                      </>
-                    )}
-                    {results?.data?.data?.map((data: any, index: number) => (
-                      <CardWithCarouselCard key={data?._id} data={data} />
-                    ))}
-                  </div>
+          {/* @ts-expect-error: Should expect string  */}
+          {results?.error?.status === 400 ? ( //  status is not present in default type
+            <NotFoundComponent
+              data={{
+                title: "It seems that you have not Given Location Permission",
+                subtitle: "Please turn on the location and try again",
+                primaryAction: {
+                  title: "Allow Location",
+                  cB: askForLocationPermission,
+                },
+              }}
+            />
+          ) : (
+            <>
+              <div className="flex">
+                <div className="grid grid-cols-2 sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-10 lg:grid-cols-4">
+                  {!results?.isSuccess && (
+                    <>
+                      {Array.from({ length: 4 }).map((_, index) => (
+                        <CardSkeleton key={index} />
+                      ))}
+                    </>
+                  )}
+                  {results?.data?.data?.map((data: any, index: number) => (
+                    <CardWithCarouselCard key={data?._id} data={data} />
+                  ))}
                 </div>
-                {results?.data?.data && (
-                  <Button className="m-auto mt-4 flex text-xl" variant={"link"}>
-                    View All
-                  </Button>
-                )}
-              </>
-            )
-          }
+              </div>
+              {results?.data?.data && (
+                <Button className="m-auto mt-4 flex text-xl" variant={"link"}>
+                  View All
+                </Button>
+              )}
+            </>
+          )}
         </div>
       </section>
     </>

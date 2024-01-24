@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
-import {  LocationDetails } from "~/types/common.types"
+import type { LocationDetails } from "~/types/common.types"
 
 const initialState: LocationDetails = {
   coords: { latitude: null, longitude: null },

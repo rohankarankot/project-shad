@@ -19,6 +19,7 @@ function RouteGuard({ children }: any) {
     if (!authorized) {
       router.push(ROUTES.HOME as string)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authorized])
 
   function authCheck(url: any) {

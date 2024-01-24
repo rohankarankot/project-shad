@@ -7,7 +7,7 @@ import { useEffect } from "react"
 import { toggleOpenPinCodeModal } from "./store/features/ui/all-dialog.slice"
 import FeaturesPosts from "~/components/sections/components/featured-city-section/features"
 
-export default async function Home() {
+export default function Home() {
   const dispatch = useAppDispatch()
 
   useEffect(() => {

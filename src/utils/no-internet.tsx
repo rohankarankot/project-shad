@@ -3,10 +3,6 @@ import { useEffect, useState } from "react"
 const Offline = () => {
   const [showComponent, setShowComponent] = useState(true)
 
-  const clickHandler = () => {
-    setShowComponent(false)
-  }
-
   useEffect(() => {
     setShowComponent(true)
   }, [showComponent])

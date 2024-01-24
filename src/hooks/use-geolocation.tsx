@@ -1,4 +1,4 @@
-import { GeolocationHook, LocationCoords } from "~/types/common.types"
+import type { GeolocationHook, LocationCoords } from "~/types/common.types"
 import { useEffect, useState } from "react"
 import { useAppDispatch } from "~/app/hooks"
 import { storeLocation } from "~/app/store/features/geo-location/location.slice"

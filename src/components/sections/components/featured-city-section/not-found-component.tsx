@@ -1,6 +1,7 @@
 import React from "react"
 import { Button } from "~/components/ui/button"
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const NotFoundComponent = ({ data: { title, subtitle, primaryAction, secondaryAction, className } }: any) => {
   return (
     <div>
@@ -18,7 +19,8 @@ const NotFoundComponent = ({ data: { title, subtitle, primaryAction, secondaryAc
               <Button
                 className=" mt-4 flex text-lg"
                 onClick={() => secondaryAction.cB()}
-                variant={secondaryAction.variant}>
+                variant={secondaryAction.variant}
+              >
                 {secondaryAction.title}
               </Button>
             )}

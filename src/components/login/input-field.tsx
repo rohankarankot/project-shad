@@ -13,7 +13,7 @@ type InputFieldProps = {
 }
 
 const InputField = ({ label, id, type, field, errors, control }: InputFieldProps) => {
-  let error = errors?.[field]?.message
+  const error = errors?.[field]?.message
   return (
     <div>
       <Label className="sr-only" htmlFor={id}>

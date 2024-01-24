@@ -12,10 +12,14 @@ import { AlertDialog } from "~/components/ui/alert-dialog"
 import { Provider } from "react-redux"
 import { store } from "./store/store"
 import Header from "~/components/layout/header"
-import GetLocationPinCode from "~/components/get-pincode/get-pincode.dialog"
+// import GetLocationPinCode from "~/components/get-pincode/get-pincode.dialog"
 import LoginComponent from "~/components/login/login.component"
 import { PageTransitionLoader } from "../utils/PageTransitionLoader"
 import RouteGuard from "~/utils/routeGuard"
+
+import "swiper/css"
+import "swiper/css"
+import "swiper/css/effect-fade"
 
 const fontSans = Inter({
   subsets: ["latin"],
